@@ -139,11 +139,11 @@ public class ItemHandler implements HttpHandler {
     private void sendResponse(HttpExchange exchange, int code, String responseContent) throws IOException {
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:4200");
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
 
         exchange.sendResponseHeaders(code, responseContent.getBytes(StandardCharsets.UTF_8).length);
         OutputStream os = exchange.getResponseBody();
-        os.write(responseContent.getBytes());
+        os.write(responseContent.getBytes(StandardCharsets.UTF_8));
         os.close();
     }
 

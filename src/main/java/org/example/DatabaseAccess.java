@@ -8,7 +8,7 @@ import java.sql.*;
 public class DatabaseAccess {
     private final String USERNAME = "root";
     private final String PASSWORD = "";
-    private final String DBNAME = "zakupy";
+    private final String DBNAME = "shopping";
     private Connection connection;
 
     public JsonArray getItems() throws SQLException {

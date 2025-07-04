@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class Main {
-    private static final String ITEM_PATH = "/api/posts";
+    private static final String ITEM_PATH = "/api/items";
     private static final int PORT = 777;
     public static void main(String[] args) {
         try {
