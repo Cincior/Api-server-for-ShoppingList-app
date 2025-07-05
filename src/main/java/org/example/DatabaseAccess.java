@@ -58,6 +58,17 @@ public class DatabaseAccess {
         return statement.executeUpdate() > 0;
     }
 
+    public boolean deleteAllItems() throws SQLException {
+        String query = "DELETE FROM items";
+
+        if(!connect()) {
+            return false;
+        }
+
+        Statement statement = connection.createStatement();
+        return statement.executeUpdate(query) > 0;
+    }
+
     public Item updateItem(Item item) throws SQLException {
         String queryUpdate = "UPDATE items SET itemName = ?, itemQuantity = ? WHERE id = ?";
 

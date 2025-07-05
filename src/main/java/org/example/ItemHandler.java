@@ -69,22 +69,26 @@ public class ItemHandler implements HttpHandler {
     }
 
     private void handleDeleteRequest(HttpExchange exchange) throws IOException, SQLException {
-        System.out.println("q: " + exchange.getRequestURI().getQuery());
         Map<String, String> queryParams = getQueryParams(exchange.getRequestURI().getQuery());
 
         String itemId = queryParams.get("id");
+        DatabaseAccess db = new DatabaseAccess();
 
         if(itemId == null) {
-            sendResponse(exchange, 404, gson.toJson("No id for deletion"));
-            return;
+            if(db.deleteAllItems()) {
+                sendResponse(exchange, 200, gson.toJson("all deleted successfully"));
+            } else {
+                sendResponse(exchange, 500, gson.toJson("Unable to delete!"));
+            }
+        } else {
+            if(db.deleteItem(Integer.parseInt(itemId))) {
+                sendResponse(exchange, 200, gson.toJson("deleted successfully"));
+            } else {
+                sendResponse(exchange, 500, gson.toJson("Unable to delete!"));
+            }
         }
 
-        DatabaseAccess db = new DatabaseAccess();
-        if(db.deleteItem(Integer.parseInt(itemId))) {
-            sendResponse(exchange, 200, gson.toJson("deleted successfully"));
-        } else {
-            sendResponse(exchange, 500, gson.toJson("Unable to delete!"));
-        }
+
     }
 
     private Map<String, String> getQueryParams(String query) {
